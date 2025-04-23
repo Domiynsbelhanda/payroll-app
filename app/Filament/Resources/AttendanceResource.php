@@ -28,7 +28,9 @@ class AttendanceResource extends Resource
             ->schema([
                 Forms\Components\Select::make('employee_id')
                     ->label('Employé')
-                    ->relationship('employee', 'full_name')
+                    ->options(
+                        \App\Models\Employee::all()->pluck('full_name', 'id')
+                    )
                     ->searchable()
                     ->required(),
 

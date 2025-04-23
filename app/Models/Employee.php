@@ -33,4 +33,16 @@ class Employee extends Model
     {
         return "{$this->first_name} {$this->middle_name} {$this->last_name}";
     }
+
+    public function salarySetting()
+    {
+        return $this->hasOne(SalarySetting::class);
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(\App\Models\Attendance::class);
+    }
+
+
 }
