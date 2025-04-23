@@ -44,5 +44,10 @@ class Employee extends Model
         return $this->hasMany(\App\Models\Attendance::class);
     }
 
+    public function payslips()
+    {
+        return $this->hasMany(Payslip::class);
+    }
+
 
 }

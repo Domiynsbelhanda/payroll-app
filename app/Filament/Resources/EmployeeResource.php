@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeResource\Pages;
+use App\Filament\Resources\EmployeeResource\Pages\PayslipViewer;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
 use Filament\Forms;
@@ -12,6 +13,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Actions\Action;
+
 
 class EmployeeResource extends Resource
 {
@@ -74,6 +77,13 @@ class EmployeeResource extends Resource
                 //
             ])
             ->actions([
+                Action::make('ficheDePaie')
+                    ->label('Fiche de paie')
+                    ->icon('heroicon-o-document-text')
+                    ->color('secondary')
+                    ->url(fn ($record) => PayslipViewer::getUrl(['record' => $record->id]))
+                    ->openUrlInNewTab(),
+
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -97,6 +107,7 @@ class EmployeeResource extends Resource
             'index' => Pages\ListEmployees::route('/'),
             'create' => Pages\CreateEmployee::route('/create'),
             'edit' => Pages\EditEmployee::route('/{record}/edit'),
+            'payslip-viewer' => PayslipViewer::route('/{record}/payslip'),
         ];
     }
 }
