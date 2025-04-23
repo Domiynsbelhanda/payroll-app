@@ -87,6 +87,21 @@ class AttendanceResource extends Resource
                     })
                     ->label('Statut'),
 
+                Tables\Columns\TextColumn::make('late_minutes')
+                    ->label('Retard (min)')
+                    ->color(fn ($state) => $state > 0 ? 'danger' : 'gray'),
+
+                Tables\Columns\TextColumn::make('overtime_minutes')
+                    ->label('Heures sup (min)')
+                    ->color(fn ($state) => $state > 0 ? 'primary' : 'gray'),
+
+                Tables\Columns\IconColumn::make('unjustified_absent')
+                    ->label('Absent injustifié')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-x-circle')
+                    ->falseIcon('heroicon-o-check-circle')
+                    ->color(fn ($state) => $state ? 'danger' : 'success'),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
